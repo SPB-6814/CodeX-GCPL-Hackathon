@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">tailwind.config = {darkMode: "class", theme: {extend: {colors: {"on-secondary": "#ffffff", "on-primary-fixed": "#002022", "on-secondary-container": "#3c6a6e", "tertiary-fixed": "#ffdbc7", "surface-variant": "#dee3e4", "on-primary": "#ffffff", "surface-container": "#e9eff0", "surface-container-low": "#eff5f5", "on-tertiary-fixed-variant": "#733500", "primary-fixed-dim": "#49d9e5", tertiary: "#964906", secondary: "#38656a", "primary-fixed": "#7ef4ff", "surface-tint": "#006970", "on-surface": "#171d1e", "on-tertiary-container": "#6b3100", error: "#ba1a1a", "on-primary-fixed-variant": "#004f55", "on-background": "#171d1e", "secondary-container": "#b9e8ed", "on-secondary-fixed-variant": "#1e4d52", "surface-container-highest": "#dee3e4", background: "#f5fafb", "secondary-fixed-dim": "#a0cfd4", "error-container": "#ffdad6", "surface-bright": "#f5fafb", "on-tertiary": "#ffffff", "surface-container-high": "#e4e9ea", "inverse-surface": "#2b3132", "outline-variant": "#bbc9ca", "on-error": "#ffffff", "secondary-fixed": "#bcebf0", "primary-container": "#1dc0cc", surface: "#f5fafb", primary: "#006970", "surface-dim": "#d5dbdc", "inverse-primary": "#49d9e5", "tertiary-container": "#f89652", "tertiary-fixed-dim": "#ffb688", "on-tertiary-fixed": "#311300", "inverse-on-surface": "#ecf2f3", "on-surface-variant": "#3c494a", "surface-container-lowest": "#ffffff", outline: "#6c7a7b", "on-secondary-fixed": "#002023", "on-error-container": "#93000a", "on-primary-container": "#00494f"}, borderRadius: {DEFAULT: "0.25rem", lg: "0.5rem", xl: "0.75rem", full: "9999px"}, spacing: {md: "24px", base: "8px", xs: "4px", "container-margin": "20px", gutter: "16px", lg: "40px", sm: "12px", xl: "64px"}, fontFamily: {"body-lg": ["Manrope"], "label-sm": ["Manrope"], "headline-md": ["Manrope"], "headline-lg": ["Manrope"], "display-score": ["Manrope"], "body-md": ["Manrope"], headline: ["Manrope"], display: ["Manrope"], body: ["Manrope"], label: ["Manrope"]}, fontSize: {"body-lg": ["18px", {lineHeight: "28px", fontWeight: "400"}], "label-sm": ["13px", {lineHeight: "18px", letterSpacing: "0.02em", fontWeight: "600"}], "headline-md": ["24px", {lineHeight: "32px", fontWeight: "600"}], "headline-lg": ["32px", {lineHeight: "40px", letterSpacing: "-0.01em", fontWeight: "600"}], "display-score": ["48px", {lineHeight: "56px", letterSpacing: "-0.02em", fontWeight: "700"}], "body-md": ["16px", {lineHeight: "24px", fontWeight: "400"}]}}}};</script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md overflow-x-hidden">
+<!-- Desktop SideNavBar -->
+<aside class="hidden md:flex flex-col h-full py-lg border-r border-outline-variant bg-surface-container-low dark:bg-surface-container h-full w-64 fixed left-0 top-0 z-40">
+<div class="px-md mb-xl">
+<h1 class="text-headline-md font-headline-md font-bold text-primary dark:text-primary-fixed-dim">SportWell</h1>
+<p class="text-label-sm font-label-sm text-on-surface-variant">Active Serenity</p>
+</div>
+<nav class="flex flex-col gap-xs px-base flex-grow">
+<a class="flex items-center gap-sm text-on-surface-variant px-md py-sm hover:bg-surface-variant/50 transition-all duration-200 group" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="text-label-sm font-label-sm">Dashboard</span>
+</a>
+<a class="flex items-center gap-sm text-on-surface-variant px-md py-sm hover:bg-surface-variant/50 transition-all duration-200 group" href="#">
+<span class="material-symbols-outlined" data-icon="psychology">psychology</span>
+<span class="text-label-sm font-label-sm">Assessments</span>
+</a>
+<!-- Active State: Community -->
+<a class="flex items-center gap-sm bg-secondary-container text-on-secondary-container rounded-xl px-md py-sm translate-x-1 duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="groups" style="font-variation-settings: 'FILL' 1;">groups</span>
+<span class="text-label-sm font-label-sm">Community</span>
+</a>
+<a class="flex items-center gap-sm text-on-surface-variant px-md py-sm hover:bg-surface-variant/50 transition-all duration-200 group" href="#">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span class="text-label-sm font-label-sm">Profile</span>
+</a>
+</nav>
+<div class="px-md mt-auto">
+<button class="w-full bg-primary text-on-primary py-sm rounded-xl font-label-sm hover:opacity-90 transition-opacity active:scale-95">
+                Start Assessment
+            </button>
+</div>
+</aside>
+<!-- Top AppBar (Mobile/Tablet Only) -->
+<header class="md:hidden sticky top-0 z-50 backdrop-blur-md bg-surface/80 dark:bg-surface-dim/80 flex justify-between items-center w-full px-container-margin py-base max-w-[1140px] mx-auto">
+<h1 class="text-headline-md font-headline-md font-bold text-primary dark:text-primary-fixed-dim">SportWell</h1>
+<div class="flex gap-md">
+<span class="material-symbols-outlined text-primary" data-icon="notifications">notifications</span>
+<span class="material-symbols-outlined text-primary" data-icon="history">history</span>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="md:ml-64 min-h-screen pb-24 md:pb-lg">
+<div class="max-w-[1140px] mx-auto px-container-margin pt-base md:pt-lg space-y-xl">
+<!-- Section Header -->
+<section class="space-y-xs">
+<h2 class="text-headline-lg font-headline-lg text-on-surface">Community Hub</h2>
+<p class="text-body-lg font-body-lg text-on-surface-variant">Connect, discover, and recover with your local tribe.</p>
+</section>
+<!-- Neighborhood Challenge Banner (Asymmetric Layout) -->
+<section class="relative overflow-hidden rounded-[24px] bg-primary-container text-on-primary-container min-h-[300px] flex items-center shadow-sm">
+<div class="absolute inset-0 z-0">
+<img class="w-full h-full object-cover opacity-30 mix-blend-overlay" data-alt="A cinematic low-angle shot of a group of runners silhouetted against a serene morning sunrise in a coastal neighborhood. The lighting is warm and golden, reflecting the Active Serenity brand with soft teal and sage green undertones. The overall aesthetic is professional, minimalist, and deeply restorative." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDiWKCNYSYpHepCdlKD0yt8C5wAITiZSJXX4h_IHNBnqAbvTlI7P6JZoxvyR3ghu1Ywg0sAf_9hfvUscopm9WH0u9IfI2WuAYkcm_yXvZcjCUtOP9ogsY35j324HZXw_3GW8DxrZYI85ySh1ZYbRlfc9gnA58jW4XjmqSSQLFikB0PGXPrtzVQb7PG7h_YCrrJ9QpUDdV6I6OopYPxc8y9uIuBT8XMH7sv12Yo8D2oW3z4pw-RdCmZO66kK1VRrXi56KK3sHvPBNw"/>
+<div class="absolute inset-0 bg-gradient-to-r from-primary-container via-primary-container/80 to-transparent"></div>
+</div>
+<div class="relative z-10 p-lg md:p-xl max-w-2xl space-y-md">
+<div class="inline-flex items-center gap-xs bg-on-primary-container/10 border border-on-primary-container/20 px-sm py-xs rounded-full">
+<span class="material-symbols-outlined text-[18px]" data-icon="location_on">location_on</span>
+<span class="text-label-sm font-label-sm">Active Now: North Goa</span>
+</div>
+<h3 class="text-display-score font-display-score leading-tight">Mapusa 100km Walking Challenge</h3>
+<p class="text-body-lg font-body-lg opacity-90">Join 1,240 neighbors this month. Complete 100km of walking to unlock the 'Zen Walker' badge and support local parks.</p>
+<div class="flex flex-wrap gap-md items-center">
+<button class="bg-on-primary-container text-primary-container px-lg py-sm rounded-full font-label-sm hover:scale-105 transition-transform active:scale-95">Join Challenge</button>
+<div class="flex -space-x-3 overflow-hidden">
+<img alt="User" class="inline-block h-10 w-10 rounded-full ring-2 ring-primary-container" data-alt="Close-up portrait of a diverse, smiling woman in athletic wear, bathed in soft, natural outdoor lighting. The style is clean and modern, following the SportWell brand identity with a high-key, airy aesthetic and professional photography quality." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD2lCcXqZx9IVsqGgn69j-BpFPB1UfjFGKeEeUv1xf_DrltAtoybFURYP4eK75K0en0vUNCc3vCpT1_wVj6TfqLJ_FuhM9i8K-djmW8lcxEtQwC6qJXPikh0xPvMmYqf-vpResmyTGR7HE1tvdJG0YegLD3R0Ad2_GQrU_z1Tu4lTGf-HayLpz1blgzoTpNqvoAqdC3mAlT8MisYNibHf7vN2hcq8V7J_ULWefbXPPv9_DH_KCVfWrlKuvfDHVJBIucsVUGxnD0cQ"/>
+<img alt="User" class="inline-block h-10 w-10 rounded-full ring-2 ring-primary-container" data-alt="Close-up portrait of a man with a serene expression, wearing a minimalist sage green workout shirt. The background is softly blurred with hints of greenery, emphasizing the active serenity theme with soft lighting and a crisp, modern aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAD9gx5Kh-YvXwaCj_gBydMO7xbgb_qv_JLT_ACBHbOtTAcNHD-1B8i7QlbUHjrIUlMKZ5eVQwVmSDsieofJtVkOBmu_VCRSGiCKrvxCCPY5yLJ4KO__5K4KaYQ_USXTWD-WaTlEKTSNeZ3mQL81UiL1e95_8xqdomwUvDjl41Tthe2_RuA2ZyPjZFGiYKVPZBamftE328wsdSmWs2sQ3HzUQbTYhno1Y6tUIysB0nf6uuuhmclMMQ8VnFoNZsohyb2hCSjTLhClA"/>
+<img alt="User" class="inline-block h-10 w-10 rounded-full ring-2 ring-primary-container" data-alt="Professional portrait of a middle-aged woman in yoga attire, looking off-camera with a focused, peaceful look. The lighting is diffused and bright, creating a clean light-mode atmosphere that aligns with a restorative health app." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCvsfhD7YiKJa9D_aq43W84b3ee7yOi_P3ZKoNGpSZU4otUkVUfYDicqqR02xN2T8ijV1eiEgg2z9L_5bT0TpkNjXu9AYYqTdNZIibqljw6RKrWQ-Y9I_m_fo_ZU6uV3wFBxYBeIxhFkKTmgLZ4mekPakT3JdDZHIDZs_zQ030D1YnptdnzUTy5x2pv6Ti77YP6UXNgCxLWE7jIM6blXs0mV95yOMwddlJUEJDj9g1_V4IwvJrWz-tNiLNBMSGgdZwpMT1UJDMF_A"/>
+<div class="flex items-center justify-center h-10 w-10 rounded-full bg-secondary text-on-secondary ring-2 ring-primary-container text-label-sm">+1k</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Sport Discovery Board (Bento Grid) -->
+<section class="space-y-md">
+<div class="flex justify-between items-end">
+<div>
+<h3 class="text-headline-md font-headline-md text-on-surface">Sport Discovery Board</h3>
+<p class="text-body-md font-body-md text-on-surface-variant">Community-voted guides for mindful movement.</p>
+</div>
+<button class="text-primary font-label-sm flex items-center gap-xs hover:underline transition-all">
+                        View All <span class="material-symbols-outlined text-[18px]" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-12 gap-md">
+<!-- Large Feature Card -->
+<div class="md:col-span-8 group relative overflow-hidden rounded-xl bg-surface-container-low p-base border-l-[6px] border-secondary shadow-sm hover:shadow-md transition-shadow">
+<div class="flex flex-col md:flex-row gap-md h-full">
+<div class="w-full md:w-1/2 h-48 md:h-full overflow-hidden rounded-lg">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="A serene indoor yoga studio with floor-to-ceiling windows overlooking a lush forest. The room is filled with soft, natural morning light. The color palette features neutral tones, sage green mats, and soft teal accents, perfectly capturing the minimalist-modern restorative aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDeHKqqiUb7iGsqnUv8lOjA-G4jdAHWq7u766oxvtWCcSdhcQIPlqUylQAG2RwG6MgnFeomlu8UHjyRdqrq3R98Jds9etonoA9E3J21XswFDDWrZL5S3xv8wZHNAPdKFZ8qdD5VaMTEPpbL8n2oL3YPg76UC4I18450GNBVD4J6NB7Q2UsQ1FVpI8OQmAAbQD7JwzX0NrRijoWipT_4ZClyFN5u4U-ducSpRAh7NKpKiZLHqWSI1aSaxsvQ30vwltvUIOYbq3ZNTA"/>
+</div>
+<div class="w-full md:w-1/2 flex flex-col justify-between py-xs pr-xs">
+<div class="space-y-xs">
+<span class="text-label-sm font-label-sm text-secondary uppercase tracking-wider">Most Voted</span>
+<h4 class="text-headline-md font-headline-md text-on-surface">The Morning Flow: Mapusa River Trail</h4>
+<p class="text-body-md font-body-md text-on-surface-variant">A 4.5km scenic route perfect for low-impact cardio and mental clarity. Includes 3 dedicated stretching zones.</p>
+</div>
+<div class="flex items-center justify-between pt-md">
+<div class="flex gap-md text-on-surface-variant text-label-sm">
+<span class="flex items-center gap-xs"><span class="material-symbols-outlined text-[18px]" data-icon="thumb_up">thumb_up</span> 842</span>
+<span class="flex items-center gap-xs"><span class="material-symbols-outlined text-[18px]" data-icon="schedule">schedule</span> 45 min</span>
+</div>
+<button class="material-symbols-outlined p-base rounded-full bg-surface-variant text-on-surface-variant hover:bg-primary hover:text-on-primary transition-colors" data-icon="bookmark">bookmark</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Small Card 1 -->
+<div class="md:col-span-4 group flex flex-col justify-between rounded-xl bg-surface-container-low p-md border-l-[6px] border-primary shadow-sm hover:shadow-md transition-shadow">
+<div class="space-y-xs">
+<div class="h-32 overflow-hidden rounded-lg mb-base">
+<img class="w-full h-full object-cover" data-alt="An overhead flat-lay of professional athletic equipment including a soft teal yoga mat, a water bottle, and a sage green towel on a clean white surface. The lighting is high-key and bright, evoking a professional and empathetic healthcare environment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBVBrTkvHG_4myvJmNRfqMn54IXqbGpAWhTH8LAK-PDJnkgbNLnEff8TEiB6Yl1_cBfuSksScRIl7uQLryFpuo3DasNGGq1ZObkZQvjfZR0oH-L5MrlQJKf_vYsGZKmc1hDKInwGhrziWzY9x6YPOqxH-s8yYL6v8QsRjDivNJqx76PV36-HGz8YjweWTxCn6C-J5h4gpc236SODlGpOIpNytHKem1y7078Cgzd_-c8Ez9plNa9Ruyd2LeA7jF72nbv9NRKrXndUQ"/>
+</div>
+<h4 class="text-body-lg font-headline-md text-on-surface">HIIT for Recovery</h4>
+<p class="text-label-sm font-body-md text-on-surface-variant">How to use short bursts for longevity without burnout.</p>
+</div>
+<div class="flex items-center justify-between mt-base">
+<span class="text-label-sm text-primary font-bold">128 Votes</span>
+<span class="material-symbols-outlined text-primary" data-icon="open_in_new">open_in_new</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Recovery Circle (Feed Layout) -->
+<section class="space-y-md">
+<div class="flex justify-between items-center">
+<div>
+<h3 class="text-headline-md font-headline-md text-on-surface">Recovery Circle</h3>
+<p class="text-body-md font-body-md text-on-surface-variant">Pro-tips from the community for better rest.</p>
+</div>
+<button class="bg-secondary text-on-secondary px-md py-xs rounded-full font-label-sm flex items-center gap-xs hover:opacity-90">
+<span class="material-symbols-outlined text-[18px]" data-icon="add">add</span> Share Tip
+                    </button>
+</div>
+<div class="space-y-md">
+<!-- Feed Item 1 -->
+<div class="bg-surface-container-lowest p-md rounded-xl border border-outline-variant/30 shadow-sm flex gap-md">
+<div class="flex-shrink-0">
+<div class="w-12 h-12 rounded-full overflow-hidden border-2 border-secondary-container">
+<img alt="Avatar" data-alt="Close-up portrait of a smiling young man in a minimalist grey hoodie. The lighting is soft and neutral, consistent with the airy, breathable UI theme of SportWell. The style is modern and approachable." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBCsHnJ6Uod9f7jKWxYRStpJjYBbinel81MWw_QKNgMLF3TmbgDXDLIfZLQWmmF7v1NmcP5JxJ3GiVXJgPPIyOMaRhfV8mBBJg98sbV4sjI0OWC0SLbdnZd8ocH_Gad_Iq7C2k8IKDSvu08BKYyxyhbkMTvkPQPrhBJtjjQTrE28fFaVf-r8ePeaZ73YvUxz4JmMYnavqv_4S1LmixT3fZ9DmmpcKuS7dF2uCgJ96Uf3uetsqE8iJsGk_z3oU5EU6PUH-weQ_qlxg"/>
+</div>
+</div>
+<div class="flex-grow space-y-sm">
+<div class="flex justify-between items-start">
+<div>
+<p class="font-bold text-on-surface">Dr. Elena Fisher <span class="text-label-sm font-normal text-on-surface-variant ml-xs">Athlete Physician</span></p>
+<p class="text-label-sm text-on-surface-variant">2 hours ago</p>
+</div>
+<span class="bg-secondary-container text-on-secondary-container text-[10px] uppercase font-bold px-base py-xs rounded-full">Expert Tip</span>
+</div>
+<p class="text-body-md text-on-surface leading-relaxed">
+                                Don't skip the "Active Rest" phase. On your off days, a 15-minute slow walk at the <span class="text-secondary font-bold">Mapusa Promenade</span> can actually clear lactic acid faster than total stillness. Your WellScore™ will thank you!
+                            </p>
+<div class="flex items-center gap-lg">
+<button class="flex items-center gap-xs text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[20px]" data-icon="favorite">favorite</span>
+<span class="text-label-sm">45</span>
+</button>
+<button class="flex items-center gap-xs text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[20px]" data-icon="chat_bubble">chat_bubble</span>
+<span class="text-label-sm">12</span>
+</button>
+<button class="flex items-center gap-xs text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[20px]" data-icon="share">share</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Feed Item 2 -->
+<div class="bg-surface-container-lowest p-md rounded-xl border border-outline-variant/30 shadow-sm flex gap-md">
+<div class="flex-shrink-0">
+<div class="w-12 h-12 rounded-full overflow-hidden border-2 border-primary-container">
+<img alt="Avatar" data-alt="Portrait of a young professional woman looking thoughtful. She is in a bright, modern office with soft-focus plants in the background. The aesthetic is clean, sophisticated, and empathetic, mirroring the SportWell design system." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD8BGCa_E1KNioQuAXpb_bVxfAxZNROONluSikGLgcWiiqtpm2qKZRdPZwmDD8vLRF1laqgpjf6yQIC4JWhU58SyYL0iagyxTe6CYIc_DJ52QeErlsRjGILuOSuCNHLXJZ6mwAkbc86nbR_Lva39zjTuc0DipXtxLn1JdiN6SyCjoofcALXROmpKXVDvplD9EUEN0xYW8n4jDKriY644zDAYGCtn7iH8ueShyVbBQo3zoiF-zeiMyZsnKb3pq4jl-re-rh2p77RTQ"/>
+</div>
+</div>
+<div class="flex-grow space-y-sm">
+<div class="flex justify-between items-start">
+<div>
+<p class="font-bold text-on-surface">Maya Chen</p>
+<p class="text-label-sm text-on-surface-variant">5 hours ago</p>
+</div>
+<button class="material-symbols-outlined text-on-surface-variant" data-icon="more_horiz">more_horiz</button>
+</div>
+<p class="text-body-md text-on-surface leading-relaxed">
+                                Magnesium baths after the 100km walking challenge legs are a literal lifesaver. Found some great organic epsom salts at the local weekend market!
+                            </p>
+<div class="rounded-xl overflow-hidden mt-base max-h-64">
+<img class="w-full object-cover" data-alt="A tranquil lifestyle photo of a bathtub with a few floating eucalyptus leaves. Soft, warm ambient light filters through a nearby window. The color palette is muted, with soft greys and whites, emphasizing a sense of meditative recovery and peaceful care." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC_85wfhQn4hDmNDzhevsKkEQ-OQZgDtUyA0gEzDTMH66Ey18ULDbyjhwPAdF1VwIW_GK8wCaLu9gat5MVGQrs4wOtB5vTq9Dsaa14RNXliFjV5QjWTEXpvxkkYmDqgS8t-Gyfs1MFlzqyUIzj7T4Wp5inZZBegRBKbAK_c-pjEDw8wS9excuYvClqVkZpBh5nzVMuzOxvfDEMF4mfxCJY4IFfoBViY14XuTt22Nfm1jKW1hbUoPrGBBKyE1oiTNOuGvGY57MaX4A"/>
+</div>
+<div class="flex items-center gap-lg">
+<button class="flex items-center gap-xs text-primary transition-colors">
+<span class="material-symbols-outlined text-[20px]" data-icon="favorite" style="font-variation-settings: 'FILL' 1;">favorite</span>
+<span class="text-label-sm">89</span>
+</button>
+<button class="flex items-center gap-xs text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[20px]" data-icon="chat_bubble">chat_bubble</span>
+<span class="text-label-sm">6</span>
+</button>
+<button class="flex items-center gap-xs text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[20px]" data-icon="share">share</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</section>
+</div>
+</main>
+<!-- Bottom Navigation (Mobile Only) -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pb-4 pt-2 md:hidden backdrop-blur-xl bg-surface/90 dark:bg-surface-dim/90 rounded-t-xl shadow-[0_-4px_20px_rgba(48,99,94,0.05)]">
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary" href="#">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+<span class="text-label-sm font-label-sm">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary" href="#">
+<span class="material-symbols-outlined" data-icon="fitness_center">fitness_center</span>
+<span class="text-label-sm font-label-sm">Assess</span>
+</a>
+<!-- Active State: Social -->
+<a class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-full px-4 py-1 scale-90 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="diversity_3" style="font-variation-settings: 'FILL' 1;">diversity_3</span>
+<span class="text-label-sm font-label-sm">Social</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary" href="#">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span class="text-label-sm font-label-sm">Me</span>
+</a>
+</nav>
+<!-- Floating Action Button (Only on Home/Dashboard/Community relevant screens) -->
+<button class="fixed bottom-24 right-container-margin md:bottom-base md:right-lg bg-primary text-on-primary p-md rounded-full shadow-lg hover:scale-110 active:scale-95 transition-all z-40">
+<span class="material-symbols-outlined text-[32px]" data-icon="edit">edit</span>
+</button>
+</body></html>
