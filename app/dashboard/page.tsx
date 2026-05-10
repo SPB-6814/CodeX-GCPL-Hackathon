@@ -1,4 +1,6 @@
-import React from 'react';
+"use client";
+
+import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { SideNav } from '@/components/layout/SideNav';
 import { TopNav } from '@/components/layout/TopNav';
@@ -7,8 +9,31 @@ import { WellScoreRing } from '@/components/visualizations/WellScoreRing';
 import { Sparkline } from '@/components/visualizations/Sparkline';
 
 export default function DashboardPage() {
-  const sparklineData = [60, 45, 70, 85, 65, 75, 82];
   const sparklineLabels = ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'];
+  const [score, setScore] = useState(0);
+  const [streak, setStreak] = useState(0);
+  const [sparklineData, setSparklineData] = useState([0, 0, 0, 0, 0, 0, 0]);
+
+  useEffect(() => {
+    fetch("http://localhost:4000/api/sessions", {
+      headers: { "Authorization": "Bearer test-token" }
+    })
+    .then(res => res.json())
+    .then(json => {
+      if(json.success && json.data) {
+        setStreak(json.data.streak?.current_streak || 0);
+        const sessions = json.data.recentSessions;
+        if(sessions && sessions.length > 0) {
+           setScore(sessions[0].composite_score);
+           // Fill sparkline
+           const recentScores = sessions.map((s: any) => s.composite_score).reverse();
+           while(recentScores.length < 7) recentScores.unshift(0);
+           setSparklineData(recentScores.slice(-7));
+        }
+      }
+    })
+    .catch(console.error);
+  }, []);
 
   return (
     <div className="bg-background text-on-background font-body-md overflow-x-hidden min-h-screen">
@@ -21,7 +46,7 @@ export default function DashboardPage() {
           {/* WellScore™ Visualization */}
           <section className="md:col-span-7 bg-surface-container-lowest rounded-[24px] p-lg flex flex-col md:flex-row items-center gap-xl shadow-[0_4px_20px_rgba(48,99,94,0.05)] border border-outline-variant/30">
             <div className="relative w-48 h-48 flex items-center justify-center shrink-0">
-              <WellScoreRing score={82} />
+              <WellScoreRing score={score} />
             </div>
             
             <div className="flex-1 w-full">
@@ -66,7 +91,7 @@ export default function DashboardPage() {
             </div>
             <div>
               <h4 className="text-label-sm font-label-sm text-on-surface-variant">Current Streak</h4>
-              <p className="text-headline-md font-headline-md">14 Days Active</p>
+              <p className="text-headline-md font-headline-md">{streak} Days Active</p>
             </div>
             <div className="ml-auto flex -space-x-2">
               {[1, 2, 3].map((i) => (

@@ -23,6 +23,13 @@ export default function AssessmentPage() {
     social: 4, // 1-5
   });
 
+  const [movementMetrics, setMovementMetrics] = useState({
+    activityType: 'Rest',
+    durationMinutes: 0,
+    intensityLevel: 'Low',
+    enjoymentLevel: 3,
+  });
+
   const [journalEntry, setJournalEntry] = useState("");
   const [isSaving, setIsSaving] = useState(false);
 
@@ -42,9 +49,14 @@ export default function AssessmentPage() {
 
     const mindAverage = (stressScore + socialScore) / 2;
 
-    // Composite Score (60% Body, 40% Mind for this MVP)
-    return Math.round((bodyAverage * 0.6) + (mindAverage * 0.4));
-  }, [bodyMetrics, mindMetrics]);
+    // Normalize movement metrics
+    const durationScore = Math.min((movementMetrics.durationMinutes / 120) * 100, 100);
+    const intensityMultiplier = movementMetrics.intensityLevel === 'High' ? 1.2 : movementMetrics.intensityLevel === 'Moderate' ? 1.0 : 0.8;
+    const movementAverage = Math.min((durationScore * intensityMultiplier) + (movementMetrics.enjoymentLevel * 5), 100);
+
+    // Composite Score (35% Body, 35% Mind, 30% Movement)
+    return Math.round((bodyAverage * 0.35) + (mindAverage * 0.35) + (movementAverage * 0.30));
+  }, [bodyMetrics, mindMetrics, movementMetrics]);
 
   // Determine color based on score (Red/Amber/Green logic)
   const scoreColor = liveWellScore >= 75 ? 'text-primary' : liveWellScore >= 50 ? 'text-amber-500' : 'text-red-500';
@@ -53,38 +65,68 @@ export default function AssessmentPage() {
   // Calculate stroke offset for SVG circle (circumference = 2 * pi * r = 2 * 3.14 * 70 = 439.6)
   const strokeOffset = 440 - (440 * liveWellScore) / 100;
 
-  // 3. LocalStorage Persistence Logic
-  const handleSaveSession = () => {
+  // 3. Backend Integration Logic
+  const handleSaveSession = async () => {
     setIsSaving(true);
 
-    const sessionData = {
-      id: Date.now(),
-      date: new Date().toISOString(),
-      score: liveWellScore,
-      metrics: { body: bodyMetrics, mind: mindMetrics },
-      journal: journalEntry
-    };
+    try {
+      const payload = {
+        answers: {
+          body: {
+            energy: bodyMetrics.energy,
+            sleep: bodyMetrics.sleep,
+            soreness: bodyMetrics.soreness,
+            hydration: bodyMetrics.hydration,
+            restingHR: 65, // Using a default value for unselected MVP fields
+          },
+          mind: {
+            focus: mindMetrics.focus === 'Sharp' ? 10 : mindMetrics.focus === 'Zen' ? 8 : mindMetrics.focus === 'Steady' ? 6 : 4,
+            stress: mindMetrics.stress,
+            social: mindMetrics.social,
+            motivation: 6, 
+            mood: 7,
+          },
+          movement: {
+            activityType: movementMetrics.activityType,
+            durationMinutes: movementMetrics.durationMinutes,
+            intensityLevel: movementMetrics.intensityLevel,
+            consistencyDays: 1, // calculated server-side normally
+            enjoymentLevel: movementMetrics.enjoymentLevel,
+          }
+        }
+      };
 
-    const existingHistory = JSON.parse(localStorage.getItem('sportWell_history') || '[]');
-    const updatedHistory = [...existingHistory, sessionData];
+      const res = await fetch("http://localhost:4000/api/sessions", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer test-token" // Using our Hackathon bypass token
+        },
+        body: JSON.stringify(payload)
+      });
 
-    localStorage.setItem('sportWell_history', JSON.stringify(updatedHistory));
+      if (!res.ok) {
+        const errData = await res.json();
+        throw new Error(errData.error || "API returned an error");
+      }
 
-    setTimeout(() => {
+      alert("Session logged successfully! The backend has computed your WellScore™ and updated your streak.");
+      // Optional: window.location.href = '/dashboard';
+    } catch (error) {
+      console.error("Save error:", error);
+      alert("Failed to sync with backend. Is the Express server running on port 4000?");
+    } finally {
       setIsSaving(false);
-      alert("Session logged successfully! Streak updated.");
-      // router.push('/dashboard');
-    }, 800);
+    }
   };
 
   return (
     <div className="bg-background text-on-background selection:bg-primary-fixed-dim selection:text-on-primary-fixed min-h-screen">
       <div className="flex min-h-screen">
-        {/* Note: SideNav should ideally be in layout.tsx, but kept here per your schema */}
-        {/* <SideNav /> */}
+        <SideNav />
 
         {/* Main Content Canvas */}
-        <main className="flex-1 pb-32">
+        <main className="flex-1 pb-32 md:ml-64 xl:pr-[340px]">
           {/* TopAppBar */}
           <header className="sticky top-0 z-30 bg-surface/80 backdrop-blur-md px-container-margin py-base max-w-[1140px] mx-auto w-full flex justify-between items-center">
             <h2 className="text-headline-md font-bold text-primary">Daily Assessment</h2>
@@ -230,6 +272,71 @@ export default function AssessmentPage() {
               </div>
             </section>
 
+            {/* Section 3: Movement Check */}
+            <section className="space-y-lg mb-xl">
+              <div className="flex items-center gap-base">
+                <div className="p-base bg-tertiary-container/20 rounded-lg text-tertiary">
+                  <span className="material-symbols-outlined">directions_run</span>
+                </div>
+                <h4 className="text-headline-md text-on-surface">3. Movement Log</h4>
+              </div>
+
+              <div className="p-lg bg-surface-container-lowest rounded-xl shadow-[0_4px_20px_rgba(48,99,94,0.05)] space-y-lg border-l-[4px] border-tertiary-container">
+                <div>
+                  <p className="text-label-sm text-on-surface mb-md">Select Activity Type</p>
+                  <div className="flex flex-wrap gap-base">
+                    {['Rest', 'Running', 'Cycling', 'Yoga', 'Weights'].map((act) => {
+                      const isActive = movementMetrics.activityType === act;
+                      return (
+                        <button 
+                          key={act}
+                          onClick={() => setMovementMetrics({ ...movementMetrics, activityType: act })}
+                          className={`px-md py-sm rounded-full text-label-sm flex items-center gap-xs transition-colors ${
+                            isActive ? 'bg-tertiary text-on-tertiary' : 'bg-surface-container hover:bg-tertiary-container hover:text-on-tertiary-container'
+                          }`}
+                        >
+                          {act}
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+                
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-lg">
+                  <div className="space-y-base">
+                    <label className="text-label-sm text-on-surface">Duration (Minutes)</label>
+                    <div className="flex items-center gap-md bg-surface-container px-4 py-2 rounded-lg">
+                      <input 
+                        type="number" 
+                        value={movementMetrics.durationMinutes}
+                        onChange={(e) => setMovementMetrics({ ...movementMetrics, durationMinutes: Number(e.target.value) })}
+                        className="w-full bg-transparent border-none text-body-md focus:outline-none" 
+                        min="0"
+                      />
+                      <span className="text-on-surface-variant text-label-sm">min</span>
+                    </div>
+                  </div>
+                  
+                  <div className="space-y-base">
+                    <label className="text-label-sm text-on-surface">Perceived Intensity</label>
+                    <div className="bg-surface-container-low rounded-xl p-xs flex gap-xs">
+                      {['Low', 'Moderate', 'High'].map((lvl) => (
+                        <button 
+                          key={lvl}
+                          onClick={() => setMovementMetrics({ ...movementMetrics, intensityLevel: lvl })}
+                          className={`flex-1 py-base text-label-sm rounded-lg transition-colors ${
+                            movementMetrics.intensityLevel === lvl ? 'bg-surface-container-lowest shadow-sm' : 'text-on-surface-variant hover:bg-surface-container'
+                          }`}
+                        >
+                          {lvl}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+
             {/* WellScore Journal */}
             <section className="space-y-lg mb-xl">
               <div className="flex items-center gap-base">
@@ -300,7 +407,7 @@ export default function AssessmentPage() {
         </aside>
 
       </div>
-      {/* <MobileNav /> */}
+      <MobileNav />
     </div>
   );
 }
